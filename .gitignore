@@ -1,0 +1,52 @@
+# ─── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ─── Virtual environments ──────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# ─── Environment / secrets ────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ─── Databases ────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ─── Node / frontend ──────────────────────────────────────
+node_modules/
+dist/
+.pnpm-store/
+.yarn/
+*.tsbuildinfo
+
+# ─── OS / editor ──────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
