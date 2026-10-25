@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// Inline spinner — reuses the @keyframes ss-spin rule in index.css
+// Inline spinner \u2014 reuses the @keyframes ss-spin rule in index.css
 const Spinner: React.FC = () => (
   <span className="ss-spinner" style={{ color: "inherit" }} aria-label="Loading" />
 );
