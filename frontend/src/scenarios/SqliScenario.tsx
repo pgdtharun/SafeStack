@@ -130,7 +130,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
               lineHeight: "1.4",
             }}
           >
-            POST /api/{currentMode}/sqli/login — Demonstrates SQL string concatenation vs. parameterized queries.
+            POST /api/{currentMode}/sqli/login {"\u2014"} Demonstrates SQL string concatenation vs. parameterized queries.
           </p>
         </div>
 
@@ -340,7 +340,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                 opacity: loading ? 0.7 : 1,
               }}
             >
-              {loading ? <><Spinner />&nbsp;Authenticating…</> : `Submit via callApi (${currentMode})`}
+              {loading ? <><Spinner />&nbsp;Authenticating{"\u2026"}</> : `Submit via callApi (${currentMode})`}
             </button>
           </form>
         </div>
@@ -419,7 +419,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                   fontWeight: 600,
                 }}
               >
-                ✓ Authentication Succeeded
+                {"\u2713"} Authentication Succeeded
               </div>
               <div style={{ fontSize: "13px", color: "#ECECEA" }}>
                 Logged in as: <strong>{loggedInUser.username}</strong> (ID: {loggedInUser.id})
@@ -449,7 +449,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                   fontWeight: 600,
                 }}
               >
-                ✗ Authentication Failed
+                {"\u2717"} Authentication Failed
               </div>
               <div style={{ fontSize: "12px", color: "#7C7C77" }}>
                 {response.error || "No matching user record found."}

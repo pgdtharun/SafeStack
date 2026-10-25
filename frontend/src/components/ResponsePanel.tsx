@@ -6,7 +6,7 @@ export interface ResponsePanelProps {
   loading?: boolean;
 }
 
-// ── tiny inline spinner (reuses the CSS class from index.css) ──────────────
+// -- tiny inline spinner (reuses the CSS class from index.css) --------------
 const Spinner: React.FC<{ color?: string }> = ({ color = "#E8A33D" }) => (
   <span className="ss-spinner" style={{ color }} aria-label="Loading" />
 );
@@ -24,7 +24,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
     setTimeout(() => setCopied(false), 1500);
   };
 
-  // ── status classification ──────────────────────────────────────────────
+  // -- status classification ----------------------------------------------
   const isNetworkError = response?.status === 0;
   const isSuccess =
     response && !isNetworkError && response.status >= 200 && response.status < 300;
@@ -62,7 +62,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         transition: "border-color 0.2s ease",
       }}
     >
-      {/* ── header bar ──────────────────────────────────────────────────── */}
+      {/* -- header bar ---------------------------------------------------- */}
       <div
         style={{
           display: "flex",
@@ -101,7 +101,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
               }}
             >
               <Spinner />
-              Sending…
+              Sending{"\u2026"}
             </span>
           )}
 
@@ -180,7 +180,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         )}
       </div>
 
-      {/* ── network / connection error banner ───────────────────────────── */}
+      {/* -- network / connection error banner ----------------------------- */}
       {isNetworkError && (
         <div
           role="alert"
@@ -205,7 +205,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
               gap: "6px",
             }}
           >
-            ✕ Network Error — Could Not Reach Backend
+            {"\u2715"} Network Error {"\u2014"} Could Not Reach Backend
           </span>
           <span
             style={{
@@ -220,7 +220,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         </div>
       )}
 
-      {/* ── non-2xx HTTP error banner (401, 403, 404, 400…) ─────────────── */}
+      {/* -- non-2xx HTTP error banner (401, 403, 404, 400...) ------------- */}
       {(isClientError || isServerError) && (
         <div
           role="alert"
@@ -242,13 +242,13 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
               fontFamily: "'Space Grotesk', sans-serif",
             }}
           >
-            {response!.status === 401 && "✕ 401 Unauthorized — Authentication Failed"}
-            {response!.status === 403 && "✕ 403 Forbidden — Access Denied"}
-            {response!.status === 404 && "✕ 404 Not Found"}
-            {response!.status === 400 && "✕ 400 Bad Request"}
-            {response!.status === 422 && "✕ 422 Unprocessable — Check your input"}
+            {response!.status === 401 && "\u2715 401 Unauthorized \u2014 Authentication Failed"}
+            {response!.status === 403 && "\u2715 403 Forbidden \u2014 Access Denied"}
+            {response!.status === 404 && "\u2715 404 Not Found"}
+            {response!.status === 400 && "\u2715 400 Bad Request"}
+            {response!.status === 422 && "\u2715 422 Unprocessable \u2014 Check your input"}
             {![400, 401, 403, 404, 422].includes(response!.status) &&
-              `✕ HTTP ${response!.status} Error`}
+              `\u2715 HTTP ${response!.status} Error`}
           </span>
           {response?.error && (
             <span
@@ -265,7 +265,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         </div>
       )}
 
-      {/* ── executed query ───────────────────────────────────────────────── */}
+      {/* -- executed query ------------------------------------------------- */}
       {response?.executed_query && (
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <span
@@ -298,7 +298,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         </div>
       )}
 
-      {/* ── raw response JSON ────────────────────────────────────────────── */}
+      {/* -- raw response JSON ---------------------------------------------- */}
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <span
           style={{
@@ -309,7 +309,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
             letterSpacing: "0.05em",
           }}
         >
-          {loading ? "Waiting for response…" : "Raw Response"}
+          {loading ? "Waiting for response\u2026" : "Raw Response"}
         </span>
         <pre
           style={{
@@ -337,7 +337,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
           }}
         >
           {loading
-            ? "— awaiting server —"
+            ? "\u2014 awaiting server \u2014"
             : response
             ? JSON.stringify(response, null, 2)
             : "Waiting for request submission"}

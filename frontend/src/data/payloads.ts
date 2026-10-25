@@ -48,12 +48,12 @@ export const xssPayloads: Payload[] = [
   {
     label: "Script tag",
     payload: "<script>alert('XSS')</script>",
-    title: "Classic script injection — executes alert() when the comment is rendered",
+    title: "Classic script injection \u2014 executes alert() when the comment is rendered",
   },
   {
     label: "Img onerror",
     payload: "<img src=x onerror=alert(1)>",
-    title: "Broken image triggers onerror handler — no closing tag needed",
+    title: "Broken image triggers onerror handler \u2014 no closing tag needed",
   },
 ];
 
@@ -62,13 +62,13 @@ export const bolaPayloads: BolaPayload[] = [
     label: "Alice's invoice",
     payload: "101",
     asUser: "alice",
-    title: "Invoice 101 belongs to Alice ($500) — legitimate access",
+    title: "Invoice 101 belongs to Alice ($500) \u2014 legitimate access",
   },
   {
     label: "Bob's invoice as Alice",
     payload: "102",
     asUser: "alice",
-    title: "Invoice 102 belongs to Bob ($750) — BOLA exploit target",
+    title: "Invoice 102 belongs to Bob ($750) \u2014 BOLA exploit target",
   },
 ];
 

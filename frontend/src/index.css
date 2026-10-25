@@ -31,7 +31,7 @@ code, pre {
   font-family: var(--font-code);
 }
 
-/* ─── Spinner ──────────────────────────────────────────────────────────────── */
+/* --- Spinner ---------------------------------------------------------------- */
 @keyframes ss-spin {
   to { transform: rotate(360deg); }
 }
@@ -47,7 +47,7 @@ code, pre {
   flex-shrink: 0;
 }
 
-/* ─── Mobile-safe two-column grid ─────────────────────────────────────────── */
+/* --- Mobile-safe two-column grid ------------------------------------------- */
 /*
   auto-fit with minmax(360px, 1fr) overflows at 390px viewport because the
   minimum column width (360px) + any padding exceeds the available space.
@@ -61,7 +61,7 @@ code, pre {
   gap: 20px;
 }
 
-/* ─── Prevent horizontal overflow on very small screens ───────────────────── */
+/* --- Prevent horizontal overflow on very small screens --------------------- */
 @media (max-width: 420px) {
   pre, code {
     font-size: 11px;

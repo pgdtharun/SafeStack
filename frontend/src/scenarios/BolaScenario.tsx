@@ -146,7 +146,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
               lineHeight: "1.4",
             }}
           >
-            GET /api/{currentMode}/bola/invoice?id=&amp;as_user= — Demonstrates missing object authorization vs. SQL JOIN ownership enforcement.
+            GET /api/{currentMode}/bola/invoice?id=&amp;as_user= {"\u2014"} Demonstrates missing object authorization vs. SQL JOIN ownership enforcement.
           </p>
         </div>
 
@@ -379,7 +379,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                 e.currentTarget.style.transform = "scale(1)";
               }}
             >
-              {loading ? <><Spinner />&nbsp;Fetching…</> : `Fetch Invoice (${currentMode})`}
+              {loading ? <><Spinner />&nbsp;Fetching{"\u2026"}</> : `Fetch Invoice (${currentMode})`}
             </button>
           </form>
         </div>
@@ -440,7 +440,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   letterSpacing: "0.04em",
                 }}
               >
-                ⚠ NOT YOUR INVOICE
+                {"\u26A0"} NOT YOUR INVOICE
               </span>
             )}
             {isOwner && (
@@ -459,7 +459,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   border: "1px solid #5BBE8844",
                 }}
               >
-                ✓ YOUR INVOICE
+                {"\u2713"} YOUR INVOICE
               </span>
             )}
           </div>
@@ -512,7 +512,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   fontWeight: 700,
                 }}
               >
-                <span>🛡️ Access Blocked (HTTP 403 Forbidden)</span>
+                <span>{"\uD83D\uDEE1\uFE0F"} Access Blocked (HTTP 403 Forbidden)</span>
               </div>
               <p
                 style={{
@@ -578,7 +578,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                       gap: "6px",
                     }}
                   >
-                    <span>⚠ BOLA Exploit Succeeded!</span>
+                    <span>{"\u26A0"} BOLA Exploit Succeeded!</span>
                   </div>
                   <span>
                     You are logged in as <strong>{asUser}</strong> (User #{currentUserId}), but
@@ -710,7 +710,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                     Description
                   </span>
                   <span style={{ fontSize: "13px", color: "#ECECEA" }}>
-                    {invoice.description || "—"}
+                    {invoice.description || "\u2014"}
                   </span>
                 </div>
               </div>

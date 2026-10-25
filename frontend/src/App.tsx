@@ -90,7 +90,7 @@ export const App: React.FC = () => {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={{ fontSize: "20px" }}>ðŸ›¡ï¸</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: "inline-block", verticalAlign: "middle" }}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             <span
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -196,7 +196,31 @@ export const App: React.FC = () => {
             onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#E8A33D")}
             onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#22262B")}
           >
-            {resetting ? "Resetting..." : "â†º Reset DB"}
+            {resetting ? (
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <Spinner size={12} />
+                <span>Resetting{"\u2026"}</span>
+              </span>
+            ) : (
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  style={{ display: "inline-block", verticalAlign: "middle" }}
+                >
+                  <polyline points="1 4 1 10 7 10" />
+                  <path d="M3.51 15a9 9 0 1 0 .49-3.63" />
+                </svg>
+                <span>Reset DB</span>
+              </span>
+            )}
           </button>
         </div>
       </header>

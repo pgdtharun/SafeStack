@@ -3,9 +3,9 @@
  *
  * Educational copy for each vulnerability scenario.
  * Shaped for a future <ExplanationCard> component with three prose fields:
- *   rootCause — what makes the code vulnerable
- *   impact     — what an attacker can achieve
- *   fix        — the correct mitigation
+ *   rootCause -- what makes the code vulnerable
+ *   impact     -- what an attacker can achieve
+ *   fix        -- the correct mitigation
  *
  * Each field is 2-3 sentences, written at a developer-literacy level.
  */
@@ -30,8 +30,8 @@ export const explanations: Record<ScenarioKey, Explanation> = {
       "intended query structure and data injected by the caller.",
 
     impact:
-      "An attacker can append SQL syntax — such as a comment sequence (`--`) or an " +
-      "always-true condition (`OR '1'='1`) — to bypass authentication entirely and " +
+      "An attacker can append SQL syntax \u2014 such as a comment sequence (`--`) or an " +
+      "always-true condition (`OR '1'='1`) \u2014 to bypass authentication entirely and " +
       "log in as any user without knowing their password. With a UNION-based payload " +
       "they can additionally extract the full contents of other tables, including " +
       "password hashes.",
@@ -53,7 +53,7 @@ export const explanations: Record<ScenarioKey, Explanation> = {
 
     impact:
       "An attacker who can store a malicious comment can cause arbitrary JavaScript to " +
-      "execute in the browser of every user who views it — a stored (persistent) XSS " +
+      "execute in the browser of every user who views it \u2014 a stored (persistent) XSS " +
       "attack. Consequences include session-cookie theft, credential harvesting, " +
       "keylogging, and full account takeover without any interaction from the victim " +
       "beyond visiting the page.",
@@ -70,15 +70,15 @@ export const explanations: Record<ScenarioKey, Explanation> = {
   bola: {
     rootCause:
       "The vulnerable endpoint fetches an invoice using only the `id` query parameter " +
-      "and ignores the `as_user` field entirely — it never checks whether the " +
+      "and ignores the `as_user` field entirely \u2014 it never checks whether the " +
       "requesting user is actually the owner of the requested object. Any caller who " +
       "knows (or can enumerate) an invoice ID can retrieve it regardless of who it " +
       "belongs to.",
 
     impact:
-      "Any authenticated user can read — or in a write-enabled variant, modify or " +
-      "delete — records belonging to other users simply by incrementing or guessing " +
-      "object IDs. BOLA (also known as IDOR — Insecure Direct Object Reference) is " +
+      "Any authenticated user can read \u2014 or in a write-enabled variant, modify or " +
+      "delete \u2014 records belonging to other users simply by incrementing or guessing " +
+      "object IDs. BOLA (also known as IDOR \u2014 Insecure Direct Object Reference) is " +
       "consistently ranked as the most common and most impactful API vulnerability " +
       "class because the IDs are often sequential integers that are trivial to " +
       "enumerate.",
@@ -88,7 +88,7 @@ export const explanations: Record<ScenarioKey, Explanation> = {
       "that `owner_id` matches the authenticated user's ID, ideally in a single " +
       "atomic SQL JOIN so there is no time-of-check / time-of-use window. The " +
       "as_user parameter or session token should never be trusted to perform its own " +
-      "access control — the database or application layer must always verify it " +
+      "access control \u2014 the database or application layer must always verify it " +
       "independently.",
   },
 };
