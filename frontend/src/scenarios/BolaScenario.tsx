@@ -146,7 +146,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
               lineHeight: "1.4",
             }}
           >
-            GET /api/{currentMode}/bola/invoice?id=&amp;as_user= Ã¢â‚¬â€ Demonstrates missing object authorization vs. SQL JOIN ownership enforcement.
+            GET /api/{currentMode}/bola/invoice?id=&amp;as_user= — Demonstrates missing object authorization vs. SQL JOIN ownership enforcement.
           </p>
         </div>
 
@@ -440,7 +440,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   letterSpacing: "0.04em",
                 }}
               >
-                Ã¢Å¡Â  NOT YOUR INVOICE
+                ⚠ NOT YOUR INVOICE
               </span>
             )}
             {isOwner && (
@@ -459,7 +459,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   border: "1px solid #5BBE8844",
                 }}
               >
-                Ã¢Å“â€œ YOUR INVOICE
+                ✓ YOUR INVOICE
               </span>
             )}
           </div>
@@ -512,7 +512,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                   fontWeight: 700,
                 }}
               >
-                <span>Ã°Å¸â€ºÂ¡Ã¯Â¸Â Access Blocked (HTTP 403 Forbidden)</span>
+                <span>🛡️ Access Blocked (HTTP 403 Forbidden)</span>
               </div>
               <p
                 style={{
@@ -578,7 +578,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                       gap: "6px",
                     }}
                   >
-                    <span>Ã¢Å¡Â  BOLA Exploit Succeeded!</span>
+                    <span>⚠ BOLA Exploit Succeeded!</span>
                   </div>
                   <span>
                     You are logged in as <strong>{asUser}</strong> (User #{currentUserId}), but
@@ -710,7 +710,7 @@ export const BolaScenario: React.FC<BolaScenarioProps> = ({
                     Description
                   </span>
                   <span style={{ fontSize: "13px", color: "#ECECEA" }}>
-                    {invoice.description || "Ã¢â‚¬â€"}
+                    {invoice.description || "—"}
                   </span>
                 </div>
               </div>

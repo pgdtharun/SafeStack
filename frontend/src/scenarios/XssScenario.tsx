@@ -171,7 +171,7 @@ export const XssScenario: React.FC<XssScenarioProps> = ({
               lineHeight: "1.4",
             }}
           >
-            POST /api/{currentMode}/xss/comment Ã¢â‚¬â€ Demonstrates unescaped stored execution vs. HTML entity escaping.
+            POST /api/{currentMode}/xss/comment — Demonstrates unescaped stored execution vs. HTML entity escaping.
           </p>
         </div>
 
@@ -520,7 +520,7 @@ export const XssScenario: React.FC<XssScenarioProps> = ({
                   border: "1px solid #C9402B33",
                 }}
               >
-                <span>Ã¢Å¡Â Ã¯Â¸Â Script execution is active inside this isolated sandbox.</span>
+                <span>⚠️ Script execution is active inside this isolated sandbox.</span>
                 <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>
                   sandbox=&quot;allow-scripts&quot;
                 </span>
@@ -556,7 +556,7 @@ export const XssScenario: React.FC<XssScenarioProps> = ({
                   border: "1px solid #2F7A4F44",
                 }}
               >
-                <span>Ã°Å¸â€ºÂ¡Ã¯Â¸Â Body was HTML-escaped by the backend and renders as plain text.</span>
+                <span>🛡️ Body was HTML-escaped by the backend and renders as plain text.</span>
                 <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>
                   textNode (safe)
                 </span>
