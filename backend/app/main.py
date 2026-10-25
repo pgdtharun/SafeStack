@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.db import DB_PATH, reset_db
 from app.schemas import ResponseEnvelope
+from app.middleware.security_headers import SecurityHeadersMiddleware
 from app.routers.vulnerable import sqli as vulnerable_sqli
 from app.routers.vulnerable import xss as vulnerable_xss
 from app.routers.vulnerable import bola as vulnerable_bola
@@ -45,6 +46,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Inject security headers on all /api/secure/* responses only
+# (vulnerable routes are deliberately left without them for the demo)
+app.add_middleware(SecurityHeadersMiddleware)
 
 
 @app.post("/api/reset", response_model=ResponseEnvelope, tags=["system"])
