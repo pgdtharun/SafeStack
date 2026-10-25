@@ -30,3 +30,40 @@ body {
 code, pre {
   font-family: var(--font-code);
 }
+
+/* ─── Spinner ──────────────────────────────────────────────────────────────── */
+@keyframes ss-spin {
+  to { transform: rotate(360deg); }
+}
+
+.ss-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ss-spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ─── Mobile-safe two-column grid ─────────────────────────────────────────── */
+/*
+  auto-fit with minmax(360px, 1fr) overflows at 390px viewport because the
+  minimum column width (360px) + any padding exceeds the available space.
+  Using min(360px, 100%) as the minimum makes the column collapse gracefully
+  to single-column on narrow viewports while keeping the two-column layout on
+  wider screens.
+*/
+.ss-scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
+  gap: 20px;
+}
+
+/* ─── Prevent horizontal overflow on very small screens ───────────────────── */
+@media (max-width: 420px) {
+  pre, code {
+    font-size: 11px;
+  }
+}

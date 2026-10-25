@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+// Inline spinner — reuses the @keyframes ss-spin rule in index.css
+const Spinner: React.FC = () => (
+  <span className="ss-spinner" style={{ color: "inherit" }} aria-label="Loading" />
+);
 import { callApi, ScenarioMode, ResponseEnvelope } from "../api/client";
 import { PayloadChip } from "../components/PayloadChip";
 import { ResponsePanel } from "../components/ResponsePanel";
@@ -126,7 +130,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
               lineHeight: "1.4",
             }}
           >
-            POST /api/{currentMode}/sqli/login — Demonstrates SQL string concatenation vs. parameterized queries.
+            POST /api/{currentMode}/sqli/login Ã¢â‚¬â€ Demonstrates SQL string concatenation vs. parameterized queries.
           </p>
         </div>
 
@@ -184,7 +188,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(360px, 100%), 1fr))",
           gap: "20px",
         }}
       >
@@ -336,7 +340,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                 opacity: loading ? 0.7 : 1,
               }}
             >
-              {loading ? "Authenticating..." : `Submit via callApi (${currentMode})`}
+              {loading ? <><Spinner />&nbsp;Authenticating…</> : `Submit via callApi (${currentMode})`}
             </button>
           </form>
         </div>
@@ -415,7 +419,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                   fontWeight: 600,
                 }}
               >
-                ✓ Authentication Succeeded
+                Ã¢Å“â€œ Authentication Succeeded
               </div>
               <div style={{ fontSize: "13px", color: "#ECECEA" }}>
                 Logged in as: <strong>{loggedInUser.username}</strong> (ID: {loggedInUser.id})
@@ -445,7 +449,7 @@ export const SqliScenario: React.FC<SqliScenarioProps> = ({
                   fontWeight: 600,
                 }}
               >
-                ✗ Authentication Failed
+                Ã¢Å“â€” Authentication Failed
               </div>
               <div style={{ fontSize: "12px", color: "#7C7C77" }}>
                 {response.error || "No matching user record found."}

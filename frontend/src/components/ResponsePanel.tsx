@@ -6,6 +6,11 @@ export interface ResponsePanelProps {
   loading?: boolean;
 }
 
+// ── tiny inline spinner (reuses the CSS class from index.css) ──────────────
+const Spinner: React.FC<{ color?: string }> = ({ color = "#E8A33D" }) => (
+  <span className="ss-spinner" style={{ color }} aria-label="Loading" />
+);
+
 export const ResponsePanel: React.FC<ResponsePanelProps> = ({
   response,
   loading = false,
@@ -19,26 +24,45 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
     setTimeout(() => setCopied(false), 1500);
   };
 
-  const isSuccess = response && response.status >= 200 && response.status < 300;
+  // ── status classification ──────────────────────────────────────────────
+  const isNetworkError = response?.status === 0;
+  const isSuccess =
+    response && !isNetworkError && response.status >= 200 && response.status < 300;
+  const isClientError =
+    response && !isNetworkError && response.status >= 400 && response.status < 500;
+  const isServerError =
+    response && !isNetworkError && response.status >= 500;
+
   const statusColor = !response
     ? "#7C7C77"
+    : isNetworkError
+    ? "#C9402B"
     : isSuccess
     ? "#5BBE88"
     : "#C9402B";
+
+  const borderColor = loading
+    ? "#E8A33D44"
+    : isNetworkError || isClientError || isServerError
+    ? "#C9402B44"
+    : isSuccess
+    ? "#2F7A4F44"
+    : "#22262B";
 
   return (
     <div
       style={{
         backgroundColor: "#15171B",
-        border: "1px solid #22262B",
+        border: `1px solid ${borderColor}`,
         borderRadius: "8px",
         padding: "16px",
         display: "flex",
         flexDirection: "column",
         gap: "14px",
+        transition: "border-color 0.2s ease",
       }}
     >
-      {/* header bar showing status and mode */}
+      {/* ── header bar ──────────────────────────────────────────────────── */}
       <div
         style={{
           display: "flex",
@@ -50,7 +74,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
           paddingBottom: "10px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
           <span
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
@@ -64,18 +88,24 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
             Response Panel
           </span>
 
+          {/* loading indicator */}
           {loading && (
             <span
               style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
                 fontSize: "11px",
                 color: "#E8A33D",
                 fontFamily: "'Space Grotesk', sans-serif",
               }}
             >
-              Sending request...
+              <Spinner />
+              Sending…
             </span>
           )}
 
+          {/* HTTP status badge */}
           {response && !loading && (
             <span
               style={{
@@ -98,13 +128,15 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
                   height: "6px",
                   borderRadius: "50%",
                   backgroundColor: statusColor,
+                  flexShrink: 0,
                 }}
               />
-              HTTP {response.status || "ERR"}
+              {isNetworkError ? "Network Error" : `HTTP ${response.status}`}
             </span>
           )}
 
-          {response?.mode && (
+          {/* mode badge */}
+          {response?.mode && !isNetworkError && (
             <span
               style={{
                 fontSize: "11px",
@@ -140,6 +172,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
               fontFamily: "'Space Grotesk', sans-serif",
               padding: "3px 8px",
               transition: "all 0.15s ease",
+              flexShrink: 0,
             }}
           >
             {copied ? "Copied!" : "Copy JSON"}
@@ -147,7 +180,92 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         )}
       </div>
 
-      {/* executed query display */}
+      {/* ── network / connection error banner ───────────────────────────── */}
+      {isNetworkError && (
+        <div
+          role="alert"
+          style={{
+            backgroundColor: "#C9402B18",
+            border: "1px solid #C9402B44",
+            borderRadius: "6px",
+            padding: "12px 14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+          }}
+        >
+          <span
+            style={{
+              color: "#C9402B",
+              fontWeight: 700,
+              fontSize: "13px",
+              fontFamily: "'Space Grotesk', sans-serif",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+            }}
+          >
+            ✕ Network Error — Could Not Reach Backend
+          </span>
+          <span
+            style={{
+              color: "#ECECEA",
+              fontSize: "12px",
+              fontFamily: "'JetBrains Mono', monospace",
+              wordBreak: "break-word",
+            }}
+          >
+            {response?.error ?? "Failed to connect. Is the backend running on port 8001?"}
+          </span>
+        </div>
+      )}
+
+      {/* ── non-2xx HTTP error banner (401, 403, 404, 400…) ─────────────── */}
+      {(isClientError || isServerError) && (
+        <div
+          role="alert"
+          style={{
+            backgroundColor: "#C9402B18",
+            border: "1px solid #C9402B44",
+            borderRadius: "6px",
+            padding: "12px 14px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "4px",
+          }}
+        >
+          <span
+            style={{
+              color: "#C9402B",
+              fontWeight: 700,
+              fontSize: "13px",
+              fontFamily: "'Space Grotesk', sans-serif",
+            }}
+          >
+            {response!.status === 401 && "✕ 401 Unauthorized — Authentication Failed"}
+            {response!.status === 403 && "✕ 403 Forbidden — Access Denied"}
+            {response!.status === 404 && "✕ 404 Not Found"}
+            {response!.status === 400 && "✕ 400 Bad Request"}
+            {response!.status === 422 && "✕ 422 Unprocessable — Check your input"}
+            {![400, 401, 403, 404, 422].includes(response!.status) &&
+              `✕ HTTP ${response!.status} Error`}
+          </span>
+          {response?.error && (
+            <span
+              style={{
+                color: "#ECECEA",
+                fontSize: "12px",
+                fontFamily: "'JetBrains Mono', monospace",
+                wordBreak: "break-word",
+              }}
+            >
+              {response.error}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* ── executed query ───────────────────────────────────────────────── */}
       {response?.executed_query && (
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <span
@@ -180,7 +298,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
         </div>
       )}
 
-      {/* raw response text */}
+      {/* ── raw response JSON ────────────────────────────────────────────── */}
       <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
         <span
           style={{
@@ -191,7 +309,7 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
             letterSpacing: "0.05em",
           }}
         >
-          Raw Response
+          {loading ? "Waiting for response…" : "Raw Response"}
         </span>
         <pre
           style={{
@@ -203,14 +321,24 @@ export const ResponsePanel: React.FC<ResponsePanelProps> = ({
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: "12px",
             lineHeight: "1.5",
-            color: response ? "#ECECEA" : "#7C7C77",
+            color: loading
+              ? "#7C7C77"
+              : isNetworkError || isClientError || isServerError
+              ? "#C9402B"
+              : response
+              ? "#ECECEA"
+              : "#7C7C77",
             overflowX: "auto",
             maxHeight: "260px",
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
+            opacity: loading ? 0.5 : 1,
+            transition: "opacity 0.2s ease",
           }}
         >
-          {response
+          {loading
+            ? "— awaiting server —"
+            : response
             ? JSON.stringify(response, null, 2)
             : "Waiting for request submission"}
         </pre>

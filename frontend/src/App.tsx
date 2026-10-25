@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+const Spinner: React.FC<{ size?: number }> = ({ size = 11 }) => (
+  <span
+    className="ss-spinner"
+    style={{ color: "inherit", width: size, height: size }}
+    aria-label="Loading"
+  />
+);
 import { SqliScenario } from "./scenarios/SqliScenario";
 import { XssScenario } from "./scenarios/XssScenario";
 import { BolaScenario } from "./scenarios/BolaScenario";
@@ -83,7 +90,7 @@ export const App: React.FC = () => {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <span style={{ fontSize: "20px" }}>🛡️</span>
+            <span style={{ fontSize: "20px" }}>ðŸ›¡ï¸</span>
             <span
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -189,7 +196,7 @@ export const App: React.FC = () => {
             onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#E8A33D")}
             onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#22262B")}
           >
-            {resetting ? "Resetting..." : "↺ Reset DB"}
+            {resetting ? "Resetting..." : "â†º Reset DB"}
           </button>
         </div>
       </header>
